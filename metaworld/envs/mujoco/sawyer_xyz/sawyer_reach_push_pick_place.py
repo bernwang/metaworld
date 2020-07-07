@@ -146,33 +146,17 @@ class SawyerReachPushPickPlaceEnv(SawyerXYZEnv):
         return [adjustedPos[0], adjustedPos[1],self.data.get_geom_xpos('objGeom')[-1]]
 
     def reset_model(self):
-        self._reset_hand()
         self._state_goal = self.goal.copy()
-        self.obj_init_pos = self.adjust_initObjPos(self.init_config['obj_init_pos'])
+        if self.random_init:
+            initial_obs = self.observation_space.sample()
+            self.hand_init_pos = initial_obs[:3]
+            self.obj_init_pos = initial_obs[3:]
+            
+        self._reset_hand()
+        self.obj_init_pos = self.adjust_initObjPos(self.obj_init_pos)
         self.obj_init_angle = self.init_config['obj_init_angle']
         self.objHeight = self.data.get_geom_xpos('objGeom')[2]
         self.heightTarget = self.objHeight + self.liftThresh
-
-        if self.random_init:
-            goal_pos = np.random.uniform(
-                self.obj_and_goal_space.low,
-                self.obj_and_goal_space.high,
-                size=(self.obj_and_goal_space.low.size),
-            )
-            self._state_goal = goal_pos[3:]
-            while np.linalg.norm(goal_pos[:2] - self._state_goal[:2]) < 0.15:
-                goal_pos = np.random.uniform(
-                    self.obj_and_goal_space.low,
-                    self.obj_and_goal_space.high,
-                    size=(self.obj_and_goal_space.low.size),
-                )
-                self._state_goal = goal_pos[3:]
-            if self.task_type == 'push':
-                self._state_goal = np.concatenate((goal_pos[-3:-1], [self.obj_init_pos[-1]]))
-                self.obj_init_pos = np.concatenate((goal_pos[:2], [self.obj_init_pos[-1]]))
-            else:
-                self._state_goal = goal_pos[-3:]
-                self.obj_init_pos = goal_pos[:3]
 
         self._set_goal_marker(self._state_goal)
         self._set_obj_xyz(self.obj_init_pos)

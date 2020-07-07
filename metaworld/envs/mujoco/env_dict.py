@@ -15,6 +15,7 @@ from metaworld.envs.mujoco.sawyer_xyz.sawyer_window_close import SawyerWindowClo
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_window_close_v2 import SawyerWindowCloseEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_dial_turn import SawyerDialTurnEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_lever_pull import SawyerLeverPullEnv
+from metaworld.envs.mujoco.sawyer_xyz.sawyer_lever_pull_v2 import SawyerLeverPullEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_drawer_open import SawyerDrawerOpenEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_button_press_topdown import SawyerButtonPressTopdownEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_drawer_close import SawyerDrawerCloseEnv
@@ -26,6 +27,7 @@ from metaworld.envs.mujoco.sawyer_xyz.sawyer_stick_push import SawyerStickPushEn
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_stick_pull import SawyerStickPullEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_button_press import SawyerButtonPressEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_shelf_place import SawyerShelfPlaceEnv
+from metaworld.envs.mujoco.sawyer_xyz.sawyer_shelf_place_v2 import SawyerShelfPlaceEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_door_close import SawyerDoorCloseEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_sweep_into_goal import SawyerSweepIntoGoalEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_coffee_button import SawyerCoffeeButtonEnv
@@ -36,7 +38,11 @@ from metaworld.envs.mujoco.sawyer_xyz.sawyer_faucet_close import SawyerFaucetClo
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_peg_unplug_side import SawyerPegUnplugSideEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_soccer import SawyerSoccerEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_basketball import SawyerBasketballEnv
+from metaworld.envs.mujoco.sawyer_xyz.sawyer_basketball_v2 import SawyerBasketballEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_reach_push_pick_place_wall import SawyerReachPushPickPlaceWallEnv
+from metaworld.envs.mujoco.sawyer_xyz.sawyer_reach_wall_v2 import SawyerReachWallEnvV2
+from metaworld.envs.mujoco.sawyer_xyz.sawyer_push_wall_v2 import SawyerPushWallEnvV2
+from metaworld.envs.mujoco.sawyer_xyz.sawyer_pick_place_wall_v2 import SawyerPickPlaceWallEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_push_back import SawyerPushBackEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_pick_out_of_hole import SawyerPickOutOfHoleEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_disassemble_peg import SawyerNutDisassembleEnv
@@ -49,9 +55,11 @@ from metaworld.envs.mujoco.sawyer_xyz.sawyer_handle_pull import SawyerHandlePull
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_handle_press_side import SawyerHandlePressSideEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_handle_pull_side import SawyerHandlePullSideEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_plate_slide import SawyerPlateSlideEnv
+from metaworld.envs.mujoco.sawyer_xyz.sawyer_plate_slide_v2 import SawyerPlateSlideEnvV2
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_plate_slide_back import SawyerPlateSlideBackEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_plate_slide_side import SawyerPlateSlideSideEnv
 from metaworld.envs.mujoco.sawyer_xyz.sawyer_plate_slide_back_side import SawyerPlateSlideBackSideEnv
+from metaworld.envs.mujoco.sawyer_xyz.sawyer_plate_slide_back_side_v2 import SawyerPlateSlideBackSideEnvV2
 
 ALL_V1_ENVIRONMENTS = OrderedDict((
     ('reach-v1', SawyerReachPushPickPlaceEnv),
@@ -106,12 +114,21 @@ ALL_V1_ENVIRONMENTS = OrderedDict((
     ('door-unlock-v1', SawyerDoorUnlockEnv),))
 
 ALL_V2_ENVIRONMENTS = OrderedDict((
+    ('basketball-v2', SawyerBasketballEnvV2),
+    ('lever-pull-v2', SawyerLeverPullEnvV2),
     ('reach-v2', SawyerReachEnvV2),
     ('push-v2', SawyerPushEnvV2),
     ('pick-place-v2', SawyerPickPlaceEnvV2),
+    ('plate-slide-back-side-v2', SawyerPlateSlideBackSideEnvV2),
+    ('plate-slide-v2', SawyerPlateSlideEnvV2),
     ('peg-insert-side-v2', SawyerPegInsertionSideEnvV2),
+    ('shelf-place-v2', SawyerShelfPlaceEnvV2),
     ('window-open-v2', SawyerWindowOpenEnvV2),
-    ('window-close-v2', SawyerWindowCloseEnvV2),))
+    ('window-close-v2', SawyerWindowCloseEnvV2),
+    ('reach-wall-v2', SawyerReachWallEnvV2),
+    ('push-wall-v2', SawyerPushWallEnvV2),
+    ('pick-place-wall-v2', SawyerPickPlaceWallEnvV2)
+))
 
 _NUM_METAWORLD_ENVS = len(ALL_V1_ENVIRONMENTS)
 
@@ -125,8 +142,7 @@ EASY_MODE_CLS_DICT = OrderedDict((
     ('button-press-topdown-v1', SawyerButtonPressTopdownEnv),
     ('peg-insert-side-v1', SawyerPegInsertionSideEnv),
     ('window-open-v1', SawyerWindowOpenEnv),
-    ('window-close-v1', SawyerWindowCloseEnv))
-)
+    ('window-close-v1', SawyerWindowCloseEnv)),)
 
 
 '''

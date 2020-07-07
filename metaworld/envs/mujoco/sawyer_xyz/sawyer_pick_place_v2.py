@@ -8,7 +8,7 @@ from metaworld.envs.mujoco.sawyer_xyz.base import SawyerXYZEnv
 class SawyerPickPlaceEnvV2(SawyerXYZEnv):
     """
     Motivation for V2:
-        V1 was completely unsolvable because the observation didn't say where
+        V1 was very difficult to solve because the observation didn't say where
         to move after picking up the puck.
     Changelog from V1 to V2:
         - (6/15/20) Added a 3 element vector to the observation. This vector
@@ -69,7 +69,7 @@ class SawyerPickPlaceEnvV2(SawyerXYZEnv):
 
     @property
     def model_name(self):
-        return get_asset_full_path('sawyer_xyz/sawyer_pick_and_place_v2.xml')
+        return get_asset_full_path('sawyer_xyz/sawyer_pick_place_v2.xml')
 
     def step(self, action):
         self.set_xyz_action(action[:3])
